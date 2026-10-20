@@ -1,0 +1,258 @@
+---
+import { APP_CONFIG } from '../utils/config';
+import { getHrefLangTags } from '../utils/i18n';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import LegalModal from '../components/LegalModal.astro';
+import FloatingTelegram from '../components/FloatingTelegram.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalUrl?: string;
+  noindex?: boolean;
+  includeTurnstile?: boolean;
+}
+
+const {
+  title = "TeraWala — Free TeraBox, Diskwala & Flezen Video Downloader & Online Player",
+  description = "Free TeraWala online video player and video downloader. Stream HD TeraBox, Diskwala & Flezen video links online, bypass ads, and download MP4 videos with zero app installs.",
+  canonicalUrl = "https://terawala.com/",
+  noindex = false,
+  includeTurnstile = false
+} = Astro.props;
+
+// Targeted High-Volume SEO Keywords
+const metaKeywords = [
+  "terawala",
+  "terawala.com",
+  "terawala video downloader",
+  "terawala downloader",
+  "terabox video downloader",
+  "diskwala video downloader",
+  "diskwala online video player",
+  "terabox player online",
+  "diskwala to terabox link converter online",
+  "diskwala link video player online",
+  "terawala online player",
+  "diskwala video download",
+  "terabox downloader",
+  "flezen video downloader",
+  "terabox link downloader",
+  "diskwala link downloader"
+].join(", ");
+
+const hrefLangTags = getHrefLangTags(Astro.url.pathname);
+
+// JSON-LD Structured Data Suite
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://terawala.com/#website",
+      "url": "https://terawala.com/",
+      "name": "TeraWala",
+      "alternateName": [
+        "TeraWala Video Downloader",
+        "TeraWala Online Video Player",
+        "Terabox Video Downloader",
+        "Diskwala Video Downloader",
+        "TeraWala Downloader",
+        "Diskwala to Terabox Link Converter Online"
+      ],
+      "description": description,
+      "inLanguage": "en-US",
+      "image": "https://terawala.com/logo.png",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://terawala.com/#tools"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://terawala.com/#organization",
+      "name": "TeraWala",
+      "url": "https://terawala.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://terawala.com/logo.png",
+        "width": 512,
+        "height": 512
+      },
+      "image": "https://terawala.com/logo.png",
+      "sameAs": [
+        "https://telegram.me/terawala_official",
+        "https://telegram.me/DiskWalaa_video_downloader_bot"
+      ]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://terawala.com/#webapp",
+      "url": "https://terawala.com/",
+      "name": "TeraWala — Terabox & Diskwala Video Downloader & Online Player",
+      "applicationCategory": "MultimediaApplication",
+      "operatingSystem": "All",
+      "browserRequirements": "Requires JavaScript. Requires HTML5.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Terabox Video Downloader",
+        "Diskwala Video Downloader",
+        "In-Browser Online Video Player",
+        "Diskwala to Terabox Link Converter Online",
+        "Zero-Ad HD Streaming Pipeline",
+        "High-Speed Telegram Bot Integration",
+        "Mobile and Desktop Browser Compatibility"
+      ]
+    },
+    {
+      "@type": "HowTo",
+      "@id": "https://terawala.com/#howto",
+      "name": "How to Use TeraWala to Stream and Download Terabox & Diskwala Videos",
+      "description": "Step-by-step instructions to stream or download Terabox and Diskwala videos online without intrusive ads or app installations.",
+      "step": [
+        {
+          "@type": "HowToStep",
+          "position": 1,
+          "name": "Copy Video Share Link",
+          "text": "Locate and copy your Terabox, Diskwala, or Flezen video share link from Telegram channels, messaging apps, or browsers."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 2,
+          "name": "Paste Link into TeraWala",
+          "text": "Paste your link into the TeraWala link input box at the top of terawala.com."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 3,
+          "name": "Click Play & Download",
+          "text": "Click the Play & Download button to validate the link parameters and initialize video resolution."
+        },
+        {
+          "@type": "HowToStep",
+          "position": 4,
+          "name": "Stream in Browser or Download in HD",
+          "text": "Watch directly in our online video player or launch the official Telegram bot to download the original full-quality MP4 video."
+        }
+      ]
+    }
+  ]
+};
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#050606" />
+
+    <!-- Theme Initialization Script (Zero FOUC) -->
+    <script is:inline>
+      (function() {
+        try {
+          var saved = localStorage.getItem('terawala_theme');
+          if (saved === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
+    <!-- SEO Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
+    <meta name="description" content={description} />
+    <meta name="keywords" content={metaKeywords} />
+    <link rel="canonical" href={canonicalUrl} />
+    {hrefLangTags.map((tag) => (
+      <link rel="alternate" hreflang={tag.hreflang} href={tag.href} />
+    ))}
+    {noindex ? (
+      <>
+        <meta name="robots" content="noindex, follow" />
+        <meta name="googlebot" content="noindex, follow" />
+      </>
+    ) : (
+      <>
+        <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+        <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+      </>
+    )}
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TeraWala" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://terawala.com/og-image.png" />
+    <meta property="og:image:secure_url" content="https://terawala.com/og-image.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="TeraWala — Terabox and Diskwala Video Downloader and Online Player" />
+    <meta property="og:logo" content="https://terawala.com/logo.png" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Cards -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalUrl} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://terawala.com/og-image.png" />
+    <meta name="twitter:image:alt" content="TeraWala — Terabox and Diskwala Video Downloader and Online Player" />
+
+    <!-- Favicon & Brand Icons for Google Search & Browsers -->
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="512x512" href="/logo.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <!-- Google Fonts Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800;850&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Razorpay Checkout Script Preload -->
+    <script is:inline src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <!-- Cloudflare Turnstile CAPTCHA (Explicit Render Mode) -->
+    {includeTurnstile && (
+      <script is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit" async defer></script>
+    )}
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
+  </head>
+  <body>
+    <SiteHeader />
+    <main id="main-content">
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <!-- Global Floating Tools & Modals -->
+    <FloatingTelegram />
+    <LegalModal />
+
+    <!-- Client Script -->
+    <script src="../scripts/app.ts"></script>
+  </body>
+</html>
